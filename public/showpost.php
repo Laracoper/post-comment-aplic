@@ -9,19 +9,15 @@ if (isset($_GET['id'])) {
     $_SESSION['post_id'] = trim((int)$_GET['id']);
 
     $user_id = $_SESSION['user_id'];
-    // dump($user_id);
-    // dump($_SESSION['post_id']);
     $post_id = $_SESSION['post_id'];
 
 
-
+    // не получилось обьеденить три таблицы поэтому так
     $sql = "SELECT * FROM posts INNER JOIN users ON  posts.user_id = users.id where posts.id= ?";
 
     $res = $pdo->prepare($sql);
     $res->execute([$post_id]);
     $post = $res->fetch(PDO::FETCH_ASSOC);
-
-    // dump($post);
 
     $sql = "SELECT * FROM users INNER JOIN comments ON  users.id = comments.user_id where post_id= ?";
     // $sql = "select * from comments where post_id = '$post_id'";
@@ -29,7 +25,6 @@ if (isset($_GET['id'])) {
     $res->execute([$post_id]);
     $comments = $res->fetchAll(PDO::FETCH_ASSOC);
 
-    // dump($comments);
 }
 
 ?>
@@ -38,11 +33,11 @@ if (isset($_GET['id'])) {
 
 
 <main class="container-fluid">
-    <h1>show post</h1>
+    <h1>пост номер <?= h($post_id) ?></h1>
 
     <div class="card bg-light mb-5">
         <div class="card-body">
-            <h5 class="card-title">номер поста <?= h($post['id']) ?></h5>
+            <h5 class="card-title">номер поста <?= h($post_id) ?></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">заголовок <span class="fw-bold"><?= h($post['title']) ?></span></h6>
             <p class="card-text mb-3">контент <span class="fw-bold"><?= h($post['content']) ?></span></p>
             <p class="card-text">дата создания <span class="fw-bold"><?= $post['created_at'] ?></span></p>

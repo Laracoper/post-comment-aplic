@@ -9,32 +9,27 @@ if (!getUser()) {
 }
 
 exitBtn();
-
-// dump($_SESSION['user_id']);
-$user_id = $_SESSION['user_id'];
+// комментарии выводятся не в том порядке почему то
+$user_id = $_SESSION['user']['id'];
 
 if (isset($_GET['id'])) {
     $post_id = trim($_GET['id']);
-    
+
     if (!empty($_POST)) {
 
-        //dump($_POST);
         $comment = trim($_POST['comment']);
-        if($comment == ''){
+        if ($comment == '') {
             header('location:createcomment.php');
-            //exit;
-        }else{
+            exit;
+        } else {
             $sql = "INSERT INTO comments (comment,post_id,user_id) VALUES (?,?,?)";
             $res = $pdo->prepare($sql);
-            $res->execute([$comment, $post_id,$user_id]);
-       
+            $res->execute([$comment, $post_id, $user_id]);
+
             header('location:/');
         }
-   
     }
 }
-
-
 
 ?>
 
@@ -47,8 +42,8 @@ if (isset($_GET['id'])) {
     <form action="" method="post">
 
         <textarea name="comment" placeholder="enter comment" class="form-control mb-4"></textarea>
-        <input type="hidden" name="post_id" class="form-control mb-4" value="<?= $post_id ?>">
-         <input type="hidden" name="post_id" class="form-control mb-4" value="<?= $user_id ?>">
+        <!-- <input type="hidden" name="post_id" class="form-control mb-4" value="<?= $post_id ?>">
+        <input type="hidden" name="user_id" class="form-control mb-4" value="<?= $user_id ?>"> -->
         <button type="submit" class="btn btn-info">create comment</button>
     </form>
 </main>

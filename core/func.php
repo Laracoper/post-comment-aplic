@@ -7,6 +7,12 @@ function dump($array)
     echo '</pre>';
 }
 
+// function dd($array)
+// {
+//     dump($array);
+//     die;
+// }
+
 function dd($array)
 {
     echo '<pre>';
@@ -29,6 +35,24 @@ function exitBtn()
     }
 }
 
-function h($a){
-    return htmlspecialchars($a,ENT_QUOTES);
+function h($a)
+{
+    return htmlspecialchars($a, ENT_QUOTES);
+}
+
+
+function insert($table, array $value)
+{
+    // $fields = [
+    //     'title',
+    //     'content',
+    //     'user_id'
+    // ];
+
+    global $pdo;
+    $sql = "INSERT INTO $table (title,content,user_id) VALUES (?,?,?)";
+    $res = $pdo->prepare($sql);
+    $res->execute($value);
+    $data = $res->fetchAll();
+    return $data;
 }

@@ -10,31 +10,34 @@ if (!getUser()) {
 
 exitBtn();
 
-
-// dump($_SESSION['user_id']);
-
-// dump($user_id);
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user']['id'];
 if (!empty($_POST)) {
 
-    //dump($_POST);
-    // dump($_POST['id']);
-    //dump($user_id);
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-    if($content==''||$title==''){
+    if ($content == '' || $title == '') {
         header('location:createpost.php');
         exit;
-    }else{
-        $sql = "INSERT INTO posts (title,content,user_id) VALUES (?,?,?)";
-        $res = $pdo->prepare($sql);
-        $res->execute([$title, $content, $user_id]);
-   
+    } else {
+        $arr = [
+            $title,
+            $content,
+            $user_id
+        ];
+        dump($arr);
+        // $fields = [
+        //     'title',
+        //     'content',
+        //     'user_id'
+        // ];
+        // dump($fields);
+        // $sql = "INSERT INTO posts (title,content,user_id) VALUES (?,?,?)";
+        // $res = $pdo->prepare($sql);
+        // $res->execute([$title, $content, $user_id]);
+        $re = insert('posts', $arr);
+       
         header('location:/');
     }
-
-
-    
 }
 // $sql = "select id from posts ";
 // $res = $pdo->prepare($sql);

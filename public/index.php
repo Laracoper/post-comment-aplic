@@ -21,19 +21,7 @@ $postsuser = $res->fetchAll(PDO::FETCH_ASSOC);
 <main class="container-fluid main">
     <h1>главная страница</h1>
     <a class="mb-4 d-flex" href="dashboard.php">ваша админ панель</a>
-    <? if (isset($_SESSION['nodata'])): ?>
-        <div class="alert alert-danger">
-            <p><?= h($_SESSION['nodata']) ?></p>
-            <? unset($_SESSION['nodata']) ?>
-        </div>
-    <? endif ?>
-
-    <? if (isset($_SESSION['usererr'])): ?>
-        <div class="alert alert-success">
-            <p><?= h($_SESSION['usererr']) ?></p>
-            <? unset($_SESSION['usererr']) ?>
-        </div>
-    <? endif ?>
+   
     <h2 class="mb-4">Регистрируйтесь, добавляйте посты и комментарии</h2>
 
     <?if(getUser()):?>

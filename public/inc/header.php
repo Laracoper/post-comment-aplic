@@ -32,7 +32,7 @@
                         <? endif ?>
 
                         <? if (getUser()): ?>
-                            <p class="me-3 fs-3 text-nowrap">hello <?=$_SESSION['user']?> </p>
+                            <p class="me-3 fs-3 text-nowrap">hello <?=h($_SESSION['user']['name'])?> </p>
                         <li class="nav-item">
                             <a class="nav-link" href="dashboard.php">админка</a>
                         </li>
