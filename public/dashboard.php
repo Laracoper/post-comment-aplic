@@ -15,7 +15,13 @@ $res = $pdo->prepare($sql);
 $res->execute([$user_id]);
 $postsuser = $res->fetchAll(PDO::FETCH_ASSOC);
 
+$sql = "select count(id)as count from posts where user_id = ?";
+$data = $pdo->prepare($sql);
+$data->execute([$user_id]);
+$count = $data->fetch(PDO::FETCH_ASSOC);
 
+dump($postsuser);
+dump($count);
 exitBtn();
 ?>
 
@@ -28,7 +34,8 @@ exitBtn();
     <div class="alert alert-success">
         <p>привет <?= $_SESSION['user']['name'] ?></p>
     </div>
-    <a class="btn btn-warning" href="createpost.php">создать пост</a>
+    <a class="btn btn-warning mb-3" href="createpost.php">создать пост</a>
+    <p>количесво постов которые вы создали: <span class="fw-bold"><?= h($count['count']) ?></span></p>
 </main>
 
 

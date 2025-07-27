@@ -8,10 +8,9 @@
 
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // ... дальнейшая работа с базой данных
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=UTF8", $username, $password);
 } catch (PDOException $e) {
-    // Обработка ошибки подключения
-    echo "Ошибка подключения: " . $e->getMessage();
+    // echo "Ошибка подключения: " . $e->getMessage();
+    file_put_contents('/error.log',$e->getMessage(),true);
     exit;
 }
